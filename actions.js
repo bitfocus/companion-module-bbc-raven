@@ -1,60 +1,60 @@
-exports = module.exports = function() {
+exports = module.exports = function () {
 
 	var self = this;
-    var portLabel = "Port ID";
+	var portLabel = "Port ID";
 
-    self.system.emit('instance_actions', self.id, {
-        // beep
+	self.system.emit('instance_actions', self.id, {
+		// beep
 		'beep_startup': {
 			label: 'Play the startup tune',
 			options: []
 		},
 
-        // config
-        'config_set': {
+		// config
+		'config_set': {
 			label: 'Set configuration properties',
 			options: [
 				{
 					type: 'textinput',
 					label: 'Name',
 					id: 'configname',
-                    required: true,
+					required: true,
 					default: ''
 				},
 				{
 					type: 'textinput',
 					label: 'Value',
 					id: 'configvalue',
-                    required: true,
+					required: true,
 					default: ''
 				}
 
-            ]
+			]
 		},
 
-        // notifications
-        'notification_message': {
+		// notifications
+		'notification_message': {
 			label: 'Send a message to all users',
 			options: [
 				{
 					type: 'textinput',
 					label: "Message to send",
 					id: 'message',
-                    required: true,
+					required: true,
 					default: ''
 				}
 			]
 		},
 
-        // record
-        'record_monitor': {
+		// record
+		'record_monitor': {
 			label: 'Monitor Port (E-E)',
 			options: [
 				{
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_REC
+					choices: self.PORTLIST_REC
 				}
 			]
 		},
@@ -65,7 +65,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_REC
+					choices: self.PORTLIST_REC
 				}
 			]
 		},
@@ -76,7 +76,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_REC
+					choices: self.PORTLIST_REC
 				}
 			]
 		},
@@ -87,7 +87,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_REC
+					choices: self.PORTLIST_REC
 				}
 			]
 		},
@@ -98,7 +98,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_REC
+					choices: self.PORTLIST_REC
 				}
 			]
 		},
@@ -109,12 +109,12 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_REC
+					choices: self.PORTLIST_REC
 				}
 			]
 		},
 
-        // port
+		// port
 		'port_togglelock': {
 			label: 'Toggle the port lock',
 			options: [
@@ -122,7 +122,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_ALL
+					choices: self.PORTLIST_ALL
 				}
 			]
 		},
@@ -133,7 +133,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_ALL
+					choices: self.PORTLIST_ALL
 				},
 				{
 					type: 'checkbox',
@@ -150,12 +150,12 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_ALL
+					choices: self.PORTLIST_ALL
 				}
 			]
 		},
 
-        // playout
+		// playout
 		'playout_eject': {
 			label: 'Eject the currently playing clip and clear the playlist',
 			options: [
@@ -163,7 +163,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -174,16 +174,16 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
-                    type: 'number',
+					type: 'number',
 					label: 'Number of frames',
 					id: 'framecount',
-                    required: true,
-                    min: 1,
-                    max: 9999,
-                    default: 25,
+					required: true,
+					min: 1,
+					max: 9999,
+					default: 25,
 				}
 			]
 		},
@@ -194,16 +194,16 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
-                    type: 'number',
+					type: 'number',
 					label: 'Number of frames',
 					id: 'framecount',
-                    required: true,
-                    min: 1,
-                    max: 9999,
-                    default: 25,
+					required: true,
+					min: 1,
+					max: 9999,
+					default: 25,
 				}
 			]
 		},
@@ -214,7 +214,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -225,7 +225,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -236,7 +236,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -247,7 +247,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -258,7 +258,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -269,7 +269,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -280,7 +280,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -291,7 +291,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -302,7 +302,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -313,7 +313,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -324,13 +324,13 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
 					type: 'textinput',
 					label: 'Clip IDs (comma separated)',
 					id: 'clipids',
-                    required: true,
+					required: true,
 					default: ''
 				}
 			]
@@ -342,13 +342,13 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
 					type: 'textinput',
 					label: 'Clip IDs (comma separated)',
 					id: 'clipids',
-                    required: true,
+					required: true,
 					default: ''
 				}
 			]
@@ -360,13 +360,13 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
 					type: 'textinput',
 					label: 'Clip IDs (comma separated)',
 					id: 'clipids',
-                    required: true,
+					required: true,
 					default: ''
 				}
 			]
@@ -378,16 +378,16 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
 					type: 'number',
 					label: 'Playlist Index to load',
-                    id: 'index',
-                    min: 0,
-                    max: 9999,
-                    default: 0,
-                    required: true
+					id: 'index',
+					min: 0,
+					max: 9999,
+					default: 0,
+					required: true
 				}
 			]
 		},
@@ -398,16 +398,16 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
 					type: 'number',
 					label: 'Frame',
 					id: 'frame',
-                    required: true,
-                    default: 0,
-                    min: 0,
-                    max: 999999999
+					required: true,
+					default: 0,
+					min: 0,
+					max: 999999999
 				}
 			]
 		},
@@ -418,7 +418,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -429,7 +429,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -440,7 +440,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				}
 			]
 		},
@@ -451,7 +451,7 @@ exports = module.exports = function() {
 					type: 'dropdown',
 					label: portLabel,
 					id: 'port',
-                    choices: self.PORTLIST_PLAY
+					choices: self.PORTLIST_PLAY
 				},
 				{
 					type: 'checkbox',
@@ -460,6 +460,20 @@ exports = module.exports = function() {
 					default: true
 				}
 			]
+		},
+
+		// syncplay plugin
+		'syncplay_trigger': {
+			label: 'Triggers a syncplay scene',
+			options: [
+				{
+					type: 'textinput',
+					label: "Trigger ID",
+					id: 'triggerid',
+					required: true,
+					default: ''
+				}
+			]
 		}
-    });
+	});
 };

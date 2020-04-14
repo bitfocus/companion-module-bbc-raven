@@ -4,7 +4,7 @@ exports = module.exports = function (action) {
 	var cmd;
 	var options = action.options;
 
-	if(options.port === undefined) {
+	if (options.port === undefined) {
 		options.port = null;
 	}
 
@@ -126,6 +126,11 @@ exports = module.exports = function (action) {
 			break;
 		case 'playout_loop':
 			cmd = '/api/playout/loop?port=' + encodeURIComponent(options.port) + "&loopflag=" + (encodeURIComponent(options.loopflag ? "1" : "0"));
+			break;
+
+		// syncplay
+		case 'syncplay_trigger':
+			cmd = "/api/syncplay/trigger?trigger=" + encodeURIComponent(options.triggerid);
 			break;
 	}
 
