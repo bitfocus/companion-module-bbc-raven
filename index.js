@@ -175,13 +175,6 @@ instance.prototype.init_connection = function () {
 
 	self.log('debug', 'attempting connection to raven API');
 
-	// generic error handler
-	process.on('uncaughtException', function (err) {
-		self.log('warn', "Faied to connect to raven API");
-		self.status(self.STATE_ERROR, 'Cannot connect');
-		console.log(err);
-	});
-
 	try {
 		// connect to API
 		self.client.get(url, function (data, response) {
