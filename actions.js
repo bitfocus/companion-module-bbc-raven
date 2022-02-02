@@ -3,7 +3,7 @@ exports = module.exports = function () {
 	var self = this;
 	var portLabel = "Port ID";
 
-	self.system.emit('instance_actions', self.id, {
+	self.setActions({
 		// beep
 		'beep_startup': {
 			label: 'Play the startup tune',
