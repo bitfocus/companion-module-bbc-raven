@@ -18,7 +18,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/geoffhouse/companion-module-bbc-raven.git"
+		"url": "git+https://github.com/bitfocus/companion-module-bbc-raven.git"
 	},
 	"author": "Geoff House",
 	"license": "MIT",
@@ -26,7 +26,7 @@
 		"node-rest-client": "^3.1.0"
 	},
 	"bugs": {
-		"url": "https://github.com/geoffhouse/companion-module-bbc-raven/issues"
+		"url": "https://github.com/bitfocus/companion-module-bbc-raven/issues"
 	},
 	"homepage": "https://github.com/geoffhouse/companion-module-bbc-raven#readme"
 }
