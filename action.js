@@ -55,6 +55,11 @@ exports = module.exports = function (action) {
 			cmd = '/api/port/setlockstate?port=' + encodeURIComponent(options.port) + "&state=" + (encodeURIComponent(options.lockstate ? "1" : "0"));
 			break;
 
+		// nuget
+		case 'nuget_restart':
+			cmd = '/api/os/nugetcontrol?action=restart';
+			break;
+
 		// port settings
 		case 'portsettings_togglemodetype':
 			cmd = '/api/portsettings/togglemodetype?port=' + encodeURIComponent(options.port);
