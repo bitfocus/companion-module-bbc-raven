@@ -114,6 +114,11 @@ exports = module.exports = function () {
 			]
 		},
 
+		// nuget
+		'nuget_restart': {
+			label: 'Restart Nuget'
+		},
+
 		// port
 		'port_togglelock': {
 			label: 'Toggle the port lock',

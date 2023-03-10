@@ -97,45 +97,60 @@ instance.prototype.destroy = function () {
 instance.prototype.init_ports = function () {
 	var self = this;
 
-	// fetches a list of ports to use in configuration
-	let url = `http://${self.config.host}/api/portlist/getall?addfriendlymachinenames=1`
-
-	// we have to do this at the moment as there's a bug in companion which doesn't let you 
-	//   save a single value in a dropdown
-	self.PORTLIST_ALL = [{ "id": "0", "label": "none" }];
-	self.PORTLIST_PLAY = [{ "id": "0", "label": "none" }];
-	self.PORTLIST_REC = [{ "id": "0", "label": "none" }];
-
+	// we need to fetch the list of machines first - so we can get the hostname of the selected server
+	let url = `http://${self.config.host}/api/machine/getall`;
 	self.client.get(url, function (data, response) {
 		if (data != null) {
-			for (var i in data) {
-				// put it in the all-ports list
-				self.PORTLIST_ALL.push({
-					"id": data[i]["port"],
-					"label": data[i]["portfriendlyname"]
-				});
-
-				if (data[i]["portmode"] == "play") {
-					// add it to the playout list
-					self.PORTLIST_PLAY.push({
-						"id": data[i]["port"],
-						"label": data[i]["portfriendlyname"]
-					});
-				}
-
-				else if (data[i]["portmode"] == "rec") {
-					// add it to the record list
-					self.PORTLIST_REC.push({
-						"id": data[i]["port"],
-						"label": data[i]["portfriendlyname"]
-					});
+			let machineName = null;
+			for(let eachMachine of data) {
+				if(self.config.host === eachMachine.ip) {
+					machineName = eachMachine.name;
 				}
 			}
+			
+			if(machineName) {
+				// fetches a list of ports to use in configuration
+				let url = `http://${self.config.host}/api/portlist/getall?addfriendlymachinenames=1&machinename=${encodeURIComponent(machineName)}`
+
+				// we have to do this at the moment as there's a bug in companion which doesn't let you 
+				//   save a single value in a dropdown
+				self.PORTLIST_ALL = [{ "id": "0", "label": "none" }];
+				self.PORTLIST_PLAY = [{ "id": "0", "label": "none" }];
+				self.PORTLIST_REC = [{ "id": "0", "label": "none" }];
+
+				self.client.get(url, function (data, response) {
+					if (data != null) {
+						for (var i in data) {
+							// put it in the all-ports list
+							self.PORTLIST_ALL.push({
+								"id": data[i]["port"],
+								"label": data[i]["portfriendlyname"]
+							});
+
+							if (data[i]["portmode"] == "play") {
+								// add it to the playout list
+								self.PORTLIST_PLAY.push({
+									"id": data[i]["port"],
+									"label": data[i]["portfriendlyname"]
+								});
+							}
+
+							else if (data[i]["portmode"] == "rec") {
+								// add it to the record list
+								self.PORTLIST_REC.push({
+									"id": data[i]["port"],
+									"label": data[i]["portfriendlyname"]
+								});
+							}
+						}
+					}
+					self.log('debug', 'found ' + self.PORTLIST_ALL.length + ' port(s) on raven server');
+					self.init_actions();
+					self.init_feedbacks();
+					self.init_portstates();
+				});
+			}
 		}
-		self.log('debug', 'found ' + self.PORTLIST_ALL.length + ' port(s) on raven server');
-		self.init_actions();
-		self.init_feedbacks();
-		self.init_portstates();
 	});
 }
 
@@ -204,48 +219,52 @@ instance.prototype.do_poll = function () {
 
 	let url = `http://${self.config.host}/api/notifications/get?timeout=20&id=${self.lastnotificationid}`;
 
-	self.client.get(url, function (data, response) {
-		for (index in data) {
-			if (data[index]["type"] == "portstatuschanged") {
-				self.push_portstate(data[index]["payload"]);
+	if(self.client) {
+		self.client.get(url, function (data, response) {
+			for (index in data) {
+				if (data[index]["type"] == "portstatuschanged") {
+					self.push_portstate(data[index]["payload"]);
+				}
+
+				// store result of poll time for next call
+				if (data[index]["_id"] > self.lastnotificationid) {
+					self.lastnotificationid = parseInt(data[index]["_id"]);
+				}
 			}
 
-			// store result of poll time for next call
-			if (data[index]["_id"] > self.lastnotificationid) {
-				self.lastnotificationid = parseInt(data[index]["_id"]);
-			}
-		}
-
-		// we've either got a notification or it's timed out ... so repeat
-		setTimeout(self.do_poll.bind(self), 100);
-	});
+			// we've either got a notification or it's timed out ... so repeat
+			setTimeout(self.do_poll.bind(self), 100);
+		});
+	}
 }
 
 instance.prototype.push_portstate = function (state) {
 	var self = this;
-	var port = state["port"];
-	var portmode = state["portmode"];
+	if(state) {
+		var port = state["port"];
+		var portmode = state["portmode"];
 
-	if (portmode == "play") {
-		var state = state["properties"]["playportstate"];
-	}
-	else if (portmode == "rec") {
-		var state = state["properties"]["recordportstate"];
-	}
+		if (portmode == "play") {
+			var state = state["properties"]["playportstate"];
+		}
+		else if (portmode == "rec") {
+			var state = state["properties"]["recordportstate"];
+		}
 
-	// save it
-	self.states['portstates'][port] = state;
+		// save it
+		self.states['portstates'][port] = state;
 
-	// raise feedback events
-	if (portmode == "play") {
-		self.checkFeedbacks('is_playing');
-		self.checkFeedbacks('is_paused');
-		self.checkFeedbacks('is_idle');
-	}
-	else if (portmode == "rec") {
-		self.checkFeedbacks('is_recording');
-		self.checkFeedbacks('is_monitoring');
-		self.checkFeedbacks('is_idle');
+		// raise feedback events
+		if (portmode == "play") {
+			self.checkFeedbacks('is_playing');
+			self.checkFeedbacks('is_paused');
+			self.checkFeedbacks('is_idle');
+		}
+		else if (portmode == "rec") {
+			self.checkFeedbacks('is_recording');
+			self.checkFeedbacks('is_monitoring');
+			self.checkFeedbacks('is_idle');
+		}
 	}
 }
 
