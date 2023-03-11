@@ -1,32 +1,21 @@
 {
-	"name": "bbc-raven",
-	"version": "1.0.4",
-	"api_version": "1.0.0",
-	"keywords": [
-		"Video",
-		"Media",
-		"Broadcast",
-		"Server"
-	],
-	"shortname": "raven",
-	"description": "BBC Raven video server module for Companion",
-	"main": "index.js",
-	"manufacturer": "BBC",
-	"product": "Raven",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/bitfocus/companion-module-bbc-raven.git"
-	},
-	"author": "Geoff House",
-	"license": "MIT",
-	"dependencies": {
-		"node-rest-client": "^3.1.0"
-	},
-	"bugs": {
-		"url": "https://github.com/bitfocus/companion-module-bbc-raven/issues"
-	},
-	"homepage": "https://github.com/geoffhouse/companion-module-bbc-raven#readme"
+    "name": "bbc-raven",
+    "version": "2.0.1",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bitfocus/companion-module-bbc-raven.git"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@companion-module/base": "~1.3.0",
+        "node-rest-client": "^3.1.0"
+    },
+    "devDependencies": {
+        "@companion-module/tools": "^1.2.0"
+    }
 }
