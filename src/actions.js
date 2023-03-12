@@ -326,6 +326,20 @@ export function updateActions() {
                 this.send(`/api/playout/pause?port=${encodeURIComponent(options.port)}`);
             },
         },
+        playout_prime: {
+            name: "Prime playout. Prepares and loads the next clip in a gallery playout playlist",
+            options: [
+                {
+                    type: "dropdown",
+                    label: "Port ID",
+                    id: "port",
+                    choices: this.PORTLIST_PLAY,
+                },
+            ],
+            callback: async ({ options }) => {
+                this.send(`/api/playout/prime?port=${encodeURIComponent(options.port)}`);
+            },
+        },
         playout_previous: {
             name: "Load the previous clip in the playlist. If playing, go back to start of current clip",
             options: [

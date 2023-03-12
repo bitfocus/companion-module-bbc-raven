@@ -3,7 +3,7 @@
     "name": "bbc-raven",
     "shortname": "raven",
     "description": "BBC Raven video server module for Companion",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "license": "MIT",
     "repository": "git+https://github.com/bitfocus/companion-module-bbc-raven.git",
     "bugs": "https://github.com/bitfocus/companion-module-bbc-raven/issues",
