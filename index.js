@@ -45,10 +45,9 @@ class BBCRavenInstance extends InstanceBase {
             {
                 type: "textinput",
                 id: "host",
-                label: "IP Address",
+                label: "IP Address / Host Name",
                 width: 6,
                 default: "",
-                regex: Regex.IP,
             },
         ];
     }
