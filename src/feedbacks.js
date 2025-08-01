@@ -9,14 +9,7 @@ export function updateFeedbacks() {
 				color: self?.color_black,
 				bgcolor: self?.color_yellow,
 			},
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: function (feedback) {
 				const portstate = self?.states?.['portstates']?.[feedback?.options?.port]
 				if (portstate == 'PLAYINGP' || portstate == 'LININGUPP') {
@@ -28,14 +21,7 @@ export function updateFeedbacks() {
 			type: 'advanced',
 			name: 'Port is paused',
 			description: 'If currently paused, highlight button',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: function (feedback) {
 				const portstate = self?.states?.['portstates']?.[feedback?.options?.port]
 				if (portstate == 'ALLOCATEDP' || portstate == 'LOADEDP') {
@@ -47,14 +33,7 @@ export function updateFeedbacks() {
 			type: 'advanced',
 			name: 'Port is idle',
 			description: 'If currently idle, highlight button as blue (use for stop button)',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_ALL,
-				},
-			],
+			options: [this.getFields().PortIdAll],
 			callback: function (feedback) {
 				const portstate = self?.states?.['portstates']?.[feedback?.options?.port]
 				if (portstate == 'IDLEP') {
@@ -66,14 +45,7 @@ export function updateFeedbacks() {
 			type: 'advanced',
 			name: 'Port is recording',
 			description: 'If currently recording, highlight button',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: function (feedback) {
 				const portstate = self?.states?.['portstates']?.[feedback?.options?.port]
 				if (portstate == 'RECORDINGP') {
@@ -85,14 +57,7 @@ export function updateFeedbacks() {
 			type: 'advanced',
 			name: 'Port is monitoring (E-E)',
 			description: 'If currently in monitor mode, highlight button',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: function (feedback) {
 				const portstate = self?.states?.['portstates']?.[feedback?.options?.port]
 				if (portstate == 'MONITORINGP') {

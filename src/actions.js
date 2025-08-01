@@ -55,84 +55,42 @@ export function updateActions() {
 		// record
 		record_monitor: {
 			name: 'Monitor Port (E-E)',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: async ({ options }) => {
 				this.send(`/api/record/monitor?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		record_stop: {
 			name: 'Stop Recording',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: async ({ options }) => {
 				this.send(`/api/record/stop?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		record_start: {
 			name: 'Start Recording',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: async ({ options }) => {
 				this.send(`/api/record/start?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		record_chunknow: {
 			name: 'Chunk recording now',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: async ({ options }) => {
 				this.send(`/api/record/chunknow?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		record_keyframe: {
 			name: 'Add keyframe while recording',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: async ({ options }) => {
 				this.send(`/api/record/keyframe?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		record_grabstill: {
 			name: 'Grab still while recording',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_REC,
-				},
-			],
+			options: [this.getFields().PortIdRec],
 			callback: async ({ options }) => {
 				this.send(`/api/record/grabstill?port=${encodeURIComponent(options.port)}`)
 			},
@@ -150,14 +108,7 @@ export function updateActions() {
 		// port
 		port_togglelock: {
 			name: 'Toggle the port lock',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_ALL,
-				},
-			],
+			options: [this.getFields().PortIdAll],
 			callback: async ({ options }) => {
 				this.send(`/api/port/toggleportlockstate?port=${encodeURIComponent(options.port)}`)
 			},
@@ -165,12 +116,7 @@ export function updateActions() {
 		port_setlock: {
 			name: 'Set the port lock',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_ALL,
-				},
+				this.getFields().PortIdAll,
 				{
 					type: 'checkbox',
 					label: 'Locked',
@@ -188,14 +134,7 @@ export function updateActions() {
 		},
 		portsettings_togglemodetype: {
 			name: 'Toggle the port mode (HD/SD)',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_ALL,
-				},
-			],
+			options: [this.getFields().PortIdAll],
 			callback: async ({ options }) => {
 				this.send(`/api/portsettings/togglemodetype?port=${encodeURIComponent(options.port)}`)
 			},
@@ -204,14 +143,7 @@ export function updateActions() {
 		// playout
 		playout_eject: {
 			name: 'Eject the currently playing clip and clear the playlist',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/eject?port=${encodeURIComponent(options.port)}`)
 			},
@@ -219,12 +151,7 @@ export function updateActions() {
 		playout_repeatframes: {
 			name: 'Repeat the specified number of frames during playout',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'number',
 					label: 'Number of frames',
@@ -246,12 +173,7 @@ export function updateActions() {
 		playout_dropframes: {
 			name: 'Drop the specified number of frames during playout',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'number',
 					label: 'Number of frames',
@@ -272,154 +194,77 @@ export function updateActions() {
 		},
 		playout_removeall: {
 			name: 'Remove all items from the playlist',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/removeall?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_keyframe: {
 			name: 'Create a user keyframe from the currently playing clip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/keyframe?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_play: {
 			name: 'Start playout. If clip is not loaded, load and play it.',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/play?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_pause: {
 			name: 'Pause playout. If clip is not loaded, load and pause it on the first frame',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/pause?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_prime: {
 			name: 'Prime playout. Prepares and loads the next clip in a gallery playout playlist',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/prime?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_previous: {
 			name: 'Load the previous clip in the playlist. If playing, go back to start of current clip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/previous?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_previousstep: {
 			name: 'Skip back 10 frames in the currently loaded clip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/previousstep?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_previousframe: {
 			name: 'Skip back 1 frame in the currently loaded clip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/previousframe?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_next: {
 			name: 'Load the next clip in the playlist',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/next?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_nextstep: {
 			name: 'Skip forward 10 frames in the currently loaded clip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/nextstep?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_nextframe: {
 			name: 'Skip forward 1 frame in the currently loaded clip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/nextframe?port=${encodeURIComponent(options.port)}`)
 			},
@@ -427,12 +272,7 @@ export function updateActions() {
 		playout_add: {
 			name: 'Add the specified clips to the playlist',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'textinput',
 					label: 'Clip IDs (comma separated)',
@@ -450,12 +290,7 @@ export function updateActions() {
 		playout_loadnow: {
 			name: 'Replace playlist with specified clips and hold on the first frame of first clip',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'textinput',
 					name: 'Clip IDs (comma separated)',
@@ -475,12 +310,7 @@ export function updateActions() {
 		playout_playnow: {
 			name: 'Replace playlist with specified clips and play first clip',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'textinput',
 					label: 'Clip IDs (comma separated)',
@@ -500,12 +330,7 @@ export function updateActions() {
 		playout_load: {
 			name: 'Load the specified clip index ready for playout',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'number',
 					label: 'Playlist Index to load',
@@ -525,12 +350,7 @@ export function updateActions() {
 		playout_seek: {
 			name: 'Seek to the specified frame in the current clip',
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'number',
 					label: 'Frame',
@@ -549,42 +369,21 @@ export function updateActions() {
 		},
 		playout_stop: {
 			name: 'Stop playout',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/stop?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_togglefield: {
 			name: 'Toggle field dominance for currently playling clip',
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/togglefield?port=${encodeURIComponent(options.port)}`)
 			},
 		},
 		playout_pauseafter: {
 			name: "Toggle 'pauseafter' mode for the port",
-			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
-			],
+			options: [this.getFields().PortIdPlay],
 			callback: async ({ options }) => {
 				this.send(`/api/playout/pauseafter?port=${encodeURIComponent(options.port)}`)
 			},
@@ -592,12 +391,7 @@ export function updateActions() {
 		playout_loop: {
 			name: "Set 'loop' mode for the port",
 			options: [
-				{
-					type: 'dropdown',
-					label: 'Port ID',
-					id: 'port',
-					choices: this.PORTLIST_PLAY,
-				},
+				this.getFields().PortIdPlay,
 				{
 					type: 'checkbox',
 					label: 'Loop enabled',

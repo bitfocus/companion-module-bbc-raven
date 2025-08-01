@@ -2,6 +2,7 @@ import { InstanceBase, InstanceStatus, Regex, runEntrypoint, combineRgb } from '
 import { Client } from 'node-rest-client'
 import { updateActions } from './src/actions.js'
 import { updateFeedbacks } from './src/feedbacks.js'
+import { getFields } from './src/fields.js'
 import { getPresets } from './src/presets.js'
 
 class BBCRavenInstance extends InstanceBase {
@@ -10,6 +11,7 @@ class BBCRavenInstance extends InstanceBase {
 
 		this.updateActions = updateActions.bind(this)
 		this.updateFeedbacks = updateFeedbacks.bind(this)
+		this.getFields = getFields.bind(this)
 		this.getPresets = getPresets.bind(this)
 	}
 
