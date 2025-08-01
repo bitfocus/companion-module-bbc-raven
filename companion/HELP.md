@@ -6,12 +6,12 @@ Updated for v3 Companion only
 
 **Available commands for Raven**
 
--   All playout transport controls (play, pause, stop ...)
--   All record transport controls (stop, record, monitor ...)
--   Playlist functionality
--   Load and play clips by id
+- All playout transport controls (play, pause, stop ...)
+- All record transport controls (stop, record, monitor ...)
+- Playlist functionality
+- Load and play clips by id
 
 **Available feedback states**
 
--   Port is playing, paused, idle
--   Port is recording, monitoring, idle
+- Port is playing, paused, idle
+- Port is recording, monitoring, idle
