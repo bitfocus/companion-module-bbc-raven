@@ -340,9 +340,6 @@ export function getPresets() {
 					],
 					up: [],
 				},
-				{
-					action: 'playout_nextframe',
-				},
 			],
 		},
 		playout_next: {
