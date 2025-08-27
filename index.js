@@ -21,6 +21,7 @@ class BBCRavenInstance extends InstanceBase {
 		// init variables
 		this.states = {
 			portstates: {},
+			clipstates: {},
 		}
 		this.lastnotificationid = 0
 
@@ -83,7 +84,7 @@ class BBCRavenInstance extends InstanceBase {
 				// we're ready to start the poll
 				self.doPoll()
 			} else {
-				self.log('debug', 'Could not retrieve last notification id from web api')
+				self.log('warn', 'Could not retrieve last notification id from web api')
 			}
 		})
 	}
@@ -104,6 +105,7 @@ class BBCRavenInstance extends InstanceBase {
 	destroy = function () {
 		this.states = {
 			portstates: {},
+			clipstates: {},
 		}
 		this.client = null
 	}
@@ -178,6 +180,7 @@ class BBCRavenInstance extends InstanceBase {
 					// we've got the portstate - now we can push it into the array
 					// - just like the notification does later on
 					self.pushPortstate(data)
+					self.pushClipState(data)
 				})
 			}
 		}
@@ -218,9 +221,14 @@ class BBCRavenInstance extends InstanceBase {
 		if (self.client) {
 			self.client.get(url, function (data, response) {
 				if (data) {
+					//self.log('debug', JSON.stringify(data))
 					for (let index in data) {
 						if (data[index]['type'] == 'portstatuschanged') {
 							self.pushPortstate(data[index]['payload'])
+						} else if (data[index]['type'] == 'clipchanged') {
+							self.pushClipState(data[index]['payload'])
+						} else {
+							//self.log('debug', 'Unknown type: ' + JSON.stringify(data[index]))
 						}
 						// store result of poll time for next call
 						if (data[index]['_id'] > self.lastnotificationid) {
@@ -255,6 +263,30 @@ class BBCRavenInstance extends InstanceBase {
 				self.checkFeedbacks('is_recording')
 				self.checkFeedbacks('is_monitoring')
 				self.checkFeedbacks('is_idle')
+			}
+		}
+	}
+
+	pushClipState = function (state) {
+		var self = this
+		if (state) {
+			var port = state['port']
+			var portmode = state['portmode']
+			if (portmode == 'play') {
+				// save it
+				//self.states['clipstates'][port] = state['properties']['playumid']
+				if (typeof self.states['clipstates'][port] === 'undefined') {
+					self.states['clipstates'][port] = {}
+				}
+				self.states['clipstates'][port]['playumid'] = state['properties']['playumid']
+				self.states['clipstates'][port]['clipname'] = state['clipname']
+				// raise feedback events
+				self.log('debug', 'Clips: ' + JSON.stringify(self.states['clipstates']))
+				if (portmode == 'play') {
+					//self.checkFeedbacks('is_playing')
+					//self.checkFeedbacks('is_paused')
+					//self.checkFeedbacks('is_idle')
+				}
 			}
 		}
 	}
