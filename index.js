@@ -14,6 +14,8 @@ class BBCRavenInstance extends InstanceBase {
 		this.updateFeedbacks = updateFeedbacks.bind(this)
 		this.getFields = getFields.bind(this)
 		this.getPresets = getPresets.bind(this)
+		this.initVariables = initVariables.bind(this)
+		this.checkVariables = checkVariables.bind(this)
 	}
 
 	async init(config) {
@@ -124,7 +126,6 @@ class BBCRavenInstance extends InstanceBase {
 					}
 				}
 				if (machineName) {
-					self.setVariableValues({'machine_name': machineName})
 					self.log('debug', `getting list of ports for machine '${machineName}'`)
 					// fetches a list of ports to use in configuration
 					let url = `http://${
@@ -163,6 +164,9 @@ class BBCRavenInstance extends InstanceBase {
 						// now we've got the ports, update actions and feedbacks
 						self.updateActions()
 						self.updateFeedbacks()
+						self.initVariables()
+						self.setVariableValues({'machine_name': machineName})
+						self.checkVariables()
 						self.initPortstates()
 					})
 				}

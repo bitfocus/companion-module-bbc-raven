@@ -5,10 +5,21 @@ export function initVariables() {
     ]
 
     for (var playPort of self.PORTLIST_PLAY) {
-        variables.push({
-            name: 'Play Port ' + playPort.id + ' Friendly Name',
-            variableId: 'play_port_' + playPort.id + '_friendly_name',
-        })
+        if (playPort.id != 0) {
+          variables.push({
+              name: 'Play Port ' + playPort.id + ' Friendly Name',
+              variableId: 'play_port_' + playPort.id + '_friendly_name',
+          })
+        }
+    }
+
+    for (var recPort of self.PORTLIST_REC) {
+        if (recPort.id != 0) {
+          variables.push({
+              name: 'Record Port ' + recPort.id + ' Friendly Name',
+              variableId: 'record_port_' + recPort.id + '_friendly_name',
+          })
+        }
     }
 
     this.setVariableDefinitions(variables)
@@ -21,7 +32,15 @@ export function checkVariables() {
 
     try {
         for (var playPort of self.PORTLIST_PLAY) {
-           variables.['play_port_' + playPort.id + '_friendly_name'] = playPort.label
+           if (playPort.id != 0) {
+	           variables['play_port_' + playPort.id + '_friendly_name'] = playPort.label
+           }
+        }
+
+        for (var recPort of self.PORTLIST_REC) {
+           if (recPort.id != 0) {
+	           variables['record_port_' + recPort.id + '_friendly_name'] = recPort.label
+           }
         }
 
         self.setVariableValues(variables)
