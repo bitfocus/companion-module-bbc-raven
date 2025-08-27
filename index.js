@@ -4,6 +4,7 @@ import { updateActions } from './src/actions.js'
 import { updateFeedbacks } from './src/feedbacks.js'
 import { getFields } from './src/fields.js'
 import { getPresets } from './src/presets.js'
+import { initVariables, checkVariables } from './src/variables.js'
 
 class BBCRavenInstance extends InstanceBase {
 	constructor(internal) {
@@ -123,6 +124,7 @@ class BBCRavenInstance extends InstanceBase {
 					}
 				}
 				if (machineName) {
+					self.setVariableValues({'machine_name': machineName})
 					self.log('debug', `getting list of ports for machine '${machineName}'`)
 					// fetches a list of ports to use in configuration
 					let url = `http://${
