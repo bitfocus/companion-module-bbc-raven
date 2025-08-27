@@ -235,6 +235,7 @@ class BBCRavenInstance extends InstanceBase {
 							self.pushClipState(data[index]['payload'])
 						} else {
 							self.log('debug', 'Unknown type: ' + JSON.stringify(data[index]))
+							// TODO(Peter): Handle clip list being entirely emptied and clear clip name and UMID
 						}
 						// store result of poll time for next call
 						if (data[index]['_id'] > self.lastnotificationid) {
