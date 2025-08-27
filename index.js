@@ -234,7 +234,7 @@ class BBCRavenInstance extends InstanceBase {
 						} else if (data[index]['type'] == 'clipchanged') {
 							self.pushClipState(data[index]['payload'])
 						} else {
-							//self.log('debug', 'Unknown type: ' + JSON.stringify(data[index]))
+							self.log('debug', 'Unknown type: ' + JSON.stringify(data[index]))
 						}
 						// store result of poll time for next call
 						if (data[index]['_id'] > self.lastnotificationid) {
@@ -253,13 +253,18 @@ class BBCRavenInstance extends InstanceBase {
 		if (state) {
 			var port = state['port']
 			var portmode = state['portmode']
+			let variables = {}
 			if (portmode == 'play') {
 				var state = state['properties']['playportstate']
+				variables['play_port_' + port + '_state'] = state
 			} else if (portmode == 'rec') {
 				var state = state['properties']['recordportstate']
+				variables['record_port_' + port + '_state'] = state
 			}
 			// save it
 			self.states['portstates'][port] = state
+			// Update variables
+			self.setVariableValues(variables)
 			// raise feedback events
 			if (portmode == 'play') {
 				self.checkFeedbacks('is_playing')
@@ -286,13 +291,14 @@ class BBCRavenInstance extends InstanceBase {
 				}
 				self.states['clipstates'][port]['playumid'] = state['properties']['playumid']
 				self.states['clipstates'][port]['clipname'] = state['clipname']
-				// raise feedback events
 				self.log('debug', 'Clips: ' + JSON.stringify(self.states['clipstates']))
-				if (portmode == 'play') {
-					//self.checkFeedbacks('is_playing')
-					//self.checkFeedbacks('is_paused')
-					//self.checkFeedbacks('is_idle')
-				}
+				// Update variables
+				let variables = {}
+				variables['play_port_' + port + '_clip_umid'] = self.states['clipstates'][port]['playumid']
+				variables['play_port_' + port + '_clip_name'] = self.states['clipstates'][port]['clipname']
+				self.setVariableValues(variables)
+				// raise feedback events
+				//self.checkFeedbacks('is_idle')
 			}
 		}
 	}

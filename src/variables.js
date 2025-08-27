@@ -10,6 +10,21 @@ export function initVariables() {
               name: 'Play Port ' + playPort.id + ' Friendly Name',
               variableId: 'play_port_' + playPort.id + '_friendly_name',
           })
+
+          variables.push({
+              name: 'Play Port ' + playPort.id + ' State',
+              variableId: 'play_port_' + playPort.id + '_state',
+          })
+
+          variables.push({
+              name: 'Play Port ' + playPort.id + ' Clip Name',
+              variableId: 'play_port_' + playPort.id + '_clip_name',
+          })
+
+          variables.push({
+              name: 'Play Port ' + playPort.id + ' Clip Unique Material Identifier',
+              variableId: 'play_port_' + playPort.id + '_clip_umid',
+          })
         }
     }
 
@@ -18,6 +33,11 @@ export function initVariables() {
           variables.push({
               name: 'Record Port ' + recPort.id + ' Friendly Name',
               variableId: 'record_port_' + recPort.id + '_friendly_name',
+          })
+
+          variables.push({
+              name: 'Record Port ' + playPort.id + ' State',
+              variableId: 'record_port_' + playPort.id + '_state',
           })
         }
     }
