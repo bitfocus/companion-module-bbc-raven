@@ -29,342 +29,363 @@ export function getPresets() {
 			'iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAYAAAATBx+NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAABCJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+CiAgICAgICAgIDx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+CiAgICAgICAgIDx0aWZmOkNvbXByZXNzaW9uPjU8L3RpZmY6Q29tcHJlc3Npb24+CiAgICAgICAgIDx0aWZmOlhSZXNvbHV0aW9uPjcyPC90aWZmOlhSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICAgICA8dGlmZjpZUmVzb2x1dGlvbj43MjwvdGlmZjpZUmVzb2x1dGlvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxYRGltZW5zaW9uPjcyPC9leGlmOlBpeGVsWERpbWVuc2lvbj4KICAgICAgICAgPGV4aWY6Q29sb3JTcGFjZT4xPC9leGlmOkNvbG9yU3BhY2U+CiAgICAgICAgIDxleGlmOlBpeGVsWURpbWVuc2lvbj41ODwvZXhpZjpQaXhlbFlEaW1lbnNpb24+CiAgICAgICAgIDxkYzpzdWJqZWN0PgogICAgICAgICAgICA8cmRmOkJhZy8+CiAgICAgICAgIDwvZGM6c3ViamVjdD4KICAgICAgICAgPHhtcDpNb2RpZnlEYXRlPjIwMjAtMDMtMTFUMjI6MDM6OTQ8L3htcDpNb2RpZnlEYXRlPgogICAgICAgICA8eG1wOkNyZWF0b3JUb29sPlBpeGVsbWF0b3IgMy45PC94bXA6Q3JlYXRvclRvb2w+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgrRmfD4AAABzElEQVR4Ae3XoU4DQRDG8aZpSCuqWoVs6qor6uABair7BlUg+wZYFG+AxPAA4BBoHEGiQCEggcDxnwQ12V52k6Ypc98kn7jJdmF+HLe9VkslAQlIQAISkIAEJCABCUhAAhKQgAQkUCJQVdWKfBFfFzQ6JXuFXQvEEXn1QlzfkkHYwUsGA2JEHoivJxqTkr3CrgWiT669ENdvZB528JLBgGiTM+Lrm8a6ZK/Qa8FYkg+vxPUl6YYePnc4IKbkmfi6p3GYu0/odQZBDMSXwU1DD587HBBdYv9avuxfcJm7T/h1YKyJPax92UO9HR4gZ0Ag5sSOfV/29aCfs0f4NUBMiH2B9GVfNEfhAXIGBGJAbrwQ1/bKcpyzR/g1QHSIvdT6spff1S4A9v3B9wPCZwLCfu+DRL85Le6QHrnytw7X72TRHInEpAAMyR3x9UJjlvhIc1oAjMmjl/nrjZsjkZgUhBmxu8SX3U3DxEea0wJgQez54sueQ73mSCQmBeCUpF4xzunv+0mbmGhLLRueGIIvwzrZ0o/5n9sAoGN8058OHB3jNTg6xmtwdIzX4OgYr8HRMb4JR30JSEACEpCABCQgAQlIQAISkIAEJLBbgV8i3CkImyxPlwAAAABJRU5ErkJggg==',
 	}
 
-	const presets = {
-		record_monitor: {
-			type: 'button',
-			category: 'Record Controls',
-			name: 'Monitor',
-			style: {
-				text: '',
-				pngalignment: 'center:center',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.record_monitor,
-			},
-			feedbacks: [
-				{
-					feedbackId: 'is_monitoring',
-					options: {},
+	let presets = []
+
+	for (const recPort of this.PORTLIST_REC) {
+		if (recPort.id != 0) {
+			presets[`port_${recPort.id}_rec_controls`] = {
+				category: `Record Controls`,
+				name: `${recPort.label} Record Controls`,
+				type: 'text',
+				text: `Record Controls for ${recPort.label}`,
+			}
+			presets[`port_${recPort.id}_record_monitor`] = {
+				type: 'button',
+				category: 'Record Controls',
+				name: `${recPort.label} Record Monitor`,
+				style: {
+					text: '',
+					pngalignment: 'center:center',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.record_monitor,
 				},
-			],
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'record_monitor',
-							options: {},
-						},
-					],
-					up: [],
+				feedbacks: [
+					{
+						feedbackId: 'is_monitoring',
+						options: { port: recPort.id },
+					},
+				],
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'record_monitor',
+								options: { port: recPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+			presets[`port_${recPort.id}_record_start`] = {
+				type: 'button',
+				category: 'Record Controls',
+				name: `${recPort.label} Start`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.record_start,
 				},
-			],
-		},
-		record_start: {
-			type: 'button',
-			category: 'Record Controls',
-			name: 'Start',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.record_start,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'record_start',
-							options: {},
-						},
-					],
-					up: [],
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'record_start',
+								options: { port: recPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [
+					{
+						feedbackId: 'is_recording',
+						options: { port: recPort.id },
+					},
+				],
+			}
+			presets[`port_${recPort.id}_record_chunk`] = {
+				type: 'button',
+				category: 'Record Controls',
+				name: `${recPort.label} Chunk`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.record_chunk,
 				},
-			],
-			feedbacks: [
-				{
-					feedbackId: 'is_recording',
-					options: {},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'record_chunknow',
+								options: { port: recPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+			presets[`port_${recPort.id}_record_stop`] = {
+				type: 'button',
+				category: 'Record Controls',
+				name: `${recPort.label} Stop`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.record_stop,
 				},
-			],
-		},
-		record_chunk: {
-			type: 'button',
-			category: 'Record Controls',
-			name: 'Chunk',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.record_chunk,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'record_chunknow',
-							options: {},
-						},
-					],
-					up: [],
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'record_stop',
+								options: { port: recPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [
+					{
+						feedbackId: 'is_idle',
+						options: { port: recPort.id },
+					},
+				],
+			}
+		}
+	}
+
+	for (const playPort of this.PORTLIST_PLAY) {
+		if (playPort.id != 0) {
+			presets[`port_${playPort.id}_play_controls`] = {
+				category: `Playout Controls`,
+				name: `${playPort.label} Playout Controls`,
+				type: 'text',
+				text: `Playout Controls for ${playPort.label}`,
+			}
+			presets[`port_${playPort.id}_playout_stop`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Stop`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_stop,
 				},
-			],
-		},
-		record_stop: {
-			type: 'button',
-			category: 'Record Controls',
-			name: 'Stop',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.record_stop,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'record_stop',
-							options: {},
-						},
-					],
-					up: [],
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_stop',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [
+					{
+						feedbackId: 'is_idle',
+						options: { port: playPort.id },
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_play`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Play`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_play,
 				},
-			],
-			feedbacks: [
-				{
-					feedbackId: 'is_idle',
-					options: {},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_play',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [
+					{
+						feedbackId: 'is_playing',
+						options: { port: playPort.id },
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_pause`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Pause`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_pause,
 				},
-			],
-		},
-		playout_stop: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Stop',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_stop,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_stop',
-							options: {},
-						},
-					],
-					up: [],
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_pause',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+				feedbacks: [
+					{
+						feedbackId: 'is_paused',
+						options: { port: playPort.id },
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_previous`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Previous`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_previous,
 				},
-			],
-			feedbacks: [
-				{
-					feedbackId: 'is_idle',
-					options: {},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_previous',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_previous_step`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Previous Step`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_previousstep,
 				},
-			],
-		},
-		playout_play: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Play',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_play,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_play',
-							options: {},
-						},
-					],
-					up: [],
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_previousstep',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_previous_frame`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Previous Frame`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_previousframe,
 				},
-			],
-			feedbacks: [
-				{
-					feedbackId: 'is_playing',
-					options: {},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_previousframe',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_next_step`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Next Step`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_nextstep,
 				},
-			],
-		},
-		playout_pause: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Pause',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_pause,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_pause',
-							options: {},
-						},
-					],
-					up: [],
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_nextstep',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_next_frame`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Next Frame`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_nextframe,
 				},
-			],
-			feedbacks: [
-				{
-					feedbackId: 'is_paused',
-					options: {},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_nextframe',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+			presets[`port_${playPort.id}_playout_next`] = {
+				type: 'button',
+				category: 'Playout Controls',
+				name: `${playPort.label} Next`,
+				style: {
+					pngalignment: 'center:center',
+					text: '',
+					size: '14',
+					bgcolor: bgcolor_gray,
+					png64: pngImages.playout_next,
 				},
-			],
-		},
-		playout_previous: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Previous',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_previous,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_previous',
-							options: {},
-						},
-					],
-					up: [],
-				},
-			],
-		},
-		playout_previous_step: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Previous Step',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_previousstep,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_previousstep',
-							options: {},
-						},
-					],
-					up: [],
-				},
-			],
-		},
-		playout_previous_frame: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Previous Frame',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_previousframe,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_previousframe',
-							options: {},
-						},
-					],
-					up: [],
-				},
-			],
-		},
-		playout_next_step: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Next Step',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_nextstep,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_nextstep',
-							options: {},
-						},
-					],
-					up: [],
-				},
-			],
-		},
-		playout_next_frame: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Next Frame',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_nextframe,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_nextframe',
-							options: {},
-						},
-					],
-					up: [],
-				},
-			],
-		},
-		playout_next: {
-			type: 'button',
-			category: 'Playout Controls',
-			name: 'Next',
-			style: {
-				pngalignment: 'center:center',
-				text: '',
-				size: '14',
-				bgcolor: bgcolor_gray,
-				png64: pngImages.playout_next,
-			},
-			steps: [
-				{
-					down: [
-						{
-							actionId: 'playout_next',
-							options: {},
-						},
-					],
-					up: [],
-				},
-			],
-		},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'playout_next',
+								options: { port: playPort.id },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+		}
 	}
 	this.setPresetDefinitions(presets)
 }

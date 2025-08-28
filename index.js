@@ -24,6 +24,10 @@ class BBCRavenInstance extends InstanceBase {
 		}
 		this.lastnotificationid = 0
 
+		this.PORTLIST_ALL = []
+		this.PORTLIST_PLAY = []
+		this.PORTLIST_REC = []
+
 		this.updateStatus(InstanceStatus.Connecting, 'Waiting To Connect')
 		this.configUpdated(config)
 	}
